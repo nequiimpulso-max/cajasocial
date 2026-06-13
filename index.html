@@ -3,7 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Caja Social | Tu Jardín de Confianza</title>
+<title>Caja Social - Tu Jardín de Confianza</title>
+<meta name="description" content="Caja Social es un espacio comunitario y familiar en Bogotá. Información, contacto y términos de uso.">
+<meta name="keywords" content="caja social, comunidad, bogotá, familia, confianza">
+<meta name="author" content="Caja Social">
+<meta name="robots" content="index, follow">
 
 <style>
 *{
@@ -33,6 +37,28 @@ header h1{
 header p{
     font-size:1.2rem;
     opacity:0.95;
+}
+
+nav {
+    background: #1B5E20;
+    padding: 12px 20px;
+    text-align: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 20px;
+    font-weight: 500;
+    transition: opacity 0.3s;
+}
+
+nav a:hover {
+    opacity: 0.8;
+    text-decoration: underline;
 }
 
 section{
@@ -119,22 +145,40 @@ section{
     font-weight:500;
 }
 
-.contacto{
+.contacto, .terminos-box{
     background:white;
     padding:40px;
     border-radius:25px;
     box-shadow:0 8px 25px rgba(0,0,0,0.08);
 }
 
-.contacto h2{
+.contacto h2, .terminos-box h2{
     color:#2E7D32;
     margin-bottom:10px;
     font-size:1.8rem;
 }
 
-.contacto p{
+.contacto p, .terminos-box p{
     color:#666;
     margin-bottom:25px;
+    line-height:1.6;
+}
+
+.contacto-info {
+    background: #f5f9f5;
+    padding: 20px;
+    border-radius: 15px;
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.contacto-info p {
+    margin: 10px 0;
+    font-size: 1.1rem;
+}
+
+.contacto-info strong {
+    color: #2E7D32;
 }
 
 input, textarea{
@@ -178,6 +222,57 @@ footer{
     font-size:0.9rem;
 }
 
+footer a {
+    color: #a5d6a7;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+.legal-links {
+    margin-top: 15px;
+}
+
+.legal-links a {
+    color: #a5d6a7;
+    margin: 0 10px;
+    text-decoration: none;
+}
+
+.legal-links a:hover {
+    text-decoration: underline;
+}
+
+/* Términos y Condiciones - estilo legal */
+.terminos-content {
+    text-align: left;
+    max-height: 500px;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+.terminos-content h3 {
+    color: #2E7D32;
+    margin: 20px 0 10px 0;
+    font-size: 1.2rem;
+}
+
+.terminos-content p {
+    margin-bottom: 15px;
+    line-height: 1.6;
+}
+
+.terminos-content ul {
+    margin: 10px 0 15px 25px;
+}
+
+.terminos-content li {
+    margin: 8px 0;
+    line-height: 1.5;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
     header h1 {
@@ -192,8 +287,13 @@ footer{
         font-size: 1.5rem;
     }
     
-    .contacto {
+    .contacto, .terminos-box {
         padding: 25px;
+    }
+    
+    nav a {
+        margin: 0 10px;
+        font-size: 0.9rem;
     }
 }
 </style>
@@ -205,8 +305,16 @@ footer{
     <p>Un espacio donde las familias crecen, comparten y construyen comunidad</p>
 </header>
 
-<section>
-    <h2 class="section-title">Nuestro Propósito</h2>
+<nav>
+    <a href="#inicio">Inicio</a>
+    <a href="#propósito">Propósito</a>
+    <a href="#espacios">Espacios</a>
+    <a href="#contacto">Contacto</a>
+    <a href="#terminos">Términos</a>
+</nav>
+
+<section id="inicio">
+    <h2 class="section-title">Bienvenidos</h2>
     <div class="cards">
         <div class="card">
             <div class="icon">🤝</div>
@@ -226,7 +334,7 @@ footer{
     </div>
 </section>
 
-<section>
+<section id="espacios">
     <h2 class="section-title">Espacios para la Familia</h2>
     <div class="galeria">
         <div class="galeria-item">
@@ -244,10 +352,16 @@ footer{
     </div>
 </section>
 
-<section>
+<section id="contacto">
     <div class="contacto">
         <h2>📬 Contáctanos</h2>
         <p>Déjanos tus datos y un asesor se comunicará contigo para contarte más sobre nuestra comunidad.</p>
+        
+        <div class="contacto-info">
+            <p><strong>📍 Dirección:</strong> Carrera 7 # 109-34, Bogotá, Colombia</p>
+            <p><strong>📧 Correo electrónico:</strong> <a href="mailto:tucajasoc@gmail.com">tucajasoc@gmail.com</a></p>
+            <p><strong>🌐 Sitio web:</strong> <a href="https://tucajasocialoficina.vercel.app" target="_blank">tucajasocialoficina.vercel.app</a></p>
+        </div>
 
         <input type="text" placeholder="Tu nombre completo" id="nombreContacto">
         <input type="email" placeholder="Correo electrónico" id="emailContacto">
@@ -258,9 +372,56 @@ footer{
     </div>
 </section>
 
+<section id="terminos">
+    <div class="terminos-box">
+        <h2>📜 Términos y Condiciones</h2>
+        <p><strong>Última actualización:</strong> 13 de junio de 2026</p>
+        
+        <div class="terminos-content">
+            <h3>1. Información General</h3>
+            <p>El presente sitio web <strong>tucajasocialoficina.vercel.app</strong> es operado por Caja Social - Tu Jardín de Confianza, con domicilio en la Carrera 7 # 109-34, Bogotá, Colombia. Este es un sitio <strong>informativo y comunitario</strong>, sin fines financieros ni transacciones económicas en línea.</p>
+            
+            <h3>2. Aceptación de los Términos</h3>
+            <p>Al acceder y utilizar este sitio web, usted acepta cumplir con estos Términos y Condiciones. Si no está de acuerdo con alguna parte de estos términos, por favor no utilice nuestro sitio.</p>
+            
+            <h3>3. Contenido Informativo</h3>
+            <p>Todo el contenido proporcionado en este sitio es únicamente con fines <strong>informativos y comunitarios</strong>. No se ofrecen servicios financieros, de inversión, crédito, ni ningún producto bancario. La información no constituye asesoría profesional.</p>
+            
+            <h3>4. Propiedad Intelectual</h3>
+            <p>Todo el contenido, imágenes, logotipos y diseño del sitio son propiedad de Caja Social - Tu Jardín de Confianza, a menos que se indique lo contrario. Queda prohibida la reproducción no autorizada.</p>
+            
+            <h3>5. Enlaces a Terceros</h3>
+            <p>Este sitio puede contener enlaces a sitios web externos. No nos hacemos responsables por el contenido o prácticas de privacidad de dichos sitios.</p>
+            
+            <h3>6. Política de Privacidad y Protección de Datos</h3>
+            <p>De conformidad con la Ley 1581 de 2012 y el Decreto 1377 de 2013 de Colombia, los datos personales recolectados a través del formulario de contacto serán tratados con estricta confidencialidad, únicamente para fines de comunicación y respuesta a consultas. No compartiremos sus datos con terceros sin su consentimiento explícito.</p>
+            
+            <h3>7. Limitación de Responsabilidad</h3>
+            <p>Caja Social - Tu Jardín de Confianza no será responsable por daños directos o indirectos derivados del uso de este sitio web. La información puede contener errores u omisiones, y nos reservamos el derecho de actualizarla sin previo aviso.</p>
+            
+            <h3>8. Legislación Aplicable</h3>
+            <p>Estos términos se rigen por las leyes de la República de Colombia. Cualquier controversia será sometida a los tribunales competentes de Bogotá D.C.</p>
+            
+            <h3>9. Contacto</h3>
+            <p>Para preguntas sobre estos Términos y Condiciones, contáctenos a: <strong>tucajasoc@gmail.com</strong> o a nuestra dirección: Carrera 7 # 109-34, Bogotá, Colombia.</p>
+            
+            <h3>10. Cumplimiento Google Ads</h3>
+            <p>Este sitio cumple con todas las políticas publicitarias de Google Ads, incluyendo: información veraz, transparencia en datos de contacto, ausencia de contenido engañoso, y términos claros sobre el propósito informativo del sitio.</p>
+        </div>
+        
+        <p style="margin-top: 20px; font-size: 0.85rem; color: #888; text-align: center;">Al utilizar este sitio, acepta nuestros Términos y Condiciones.</p>
+    </div>
+</section>
+
 <footer>
     <p>🌱 Caja Social - Tu Jardín de Confianza | Un espacio para todas las familias</p>
-    <p style="margin-top:10px; font-size:0.8rem;">Información general · Comunidad · Bienestar familiar</p>
+    <p style="margin-top:10px; font-size:0.8rem;">📍 Carrera 7 # 109-34, Bogotá, Colombia | 📧 tucajasoc@gmail.com</p>
+    <div class="legal-links">
+        <a href="#terminos">Términos y Condiciones</a>
+        <a href="#contacto">Contacto</a>
+        <a href="https://tucajasocialoficina.vercel.app" target="_blank">tucajasocialoficina.vercel.app</a>
+    </div>
+    <p style="margin-top: 15px; font-size: 0.7rem;">© 2026 Caja Social - Todos los derechos reservados | Sitio informativo - No transacciones financieras</p>
 </footer>
 
 <script>
@@ -268,9 +429,10 @@ function enviar(){
     const nombre = document.getElementById('nombreContacto').value.trim();
     const email = document.getElementById('emailContacto').value.trim();
     const celular = document.getElementById('celularContacto').value.trim();
+    const mensaje = document.getElementById('mensajeContacto').value.trim();
     
     if(!nombre || !email || !celular) {
-        alert("📝 Por favor, completa tus datos para que podamos contactarte.");
+        alert("📝 Por favor, completa todos los campos obligatorios (nombre, correo y teléfono).");
         return;
     }
     
@@ -279,7 +441,12 @@ function enviar(){
         return;
     }
     
-    alert("✅ ¡Gracias " + nombre + "! En breve un asesor se comunicará contigo para darte la bienvenida a nuestra comunidad.");
+    if(celular.length < 7) {
+        alert("📱 Por favor, ingresa un número de teléfono válido.");
+        return;
+    }
+    
+    alert("✅ ¡Gracias " + nombre + "! En breve un asesor se comunicará contigo al correo " + email + " para darte la bienvenida a nuestra comunidad.");
     
     // Limpiar formulario
     document.getElementById('nombreContacto').value = '';
@@ -287,6 +454,18 @@ function enviar(){
     document.getElementById('celularContacto').value = '';
     document.getElementById('mensajeContacto').value = '';
 }
+
+// Smooth scroll para los enlaces del menú
+document.querySelectorAll('nav a').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href').substring(1);
+        const targetElement = document.getElementById(targetId);
+        if(targetElement) {
+            targetElement.scrollIntoView({ behavior: 'smooth' });
+        }
+    });
+});
 </script>
 
 </body>
