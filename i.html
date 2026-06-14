@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Caja Social Bebés</title>
+<title>Caja Social Bebés - Portal Jardín Infantil</title>
 
 <style>
 *{
@@ -14,90 +14,155 @@
 }
 
 body{
-    background:#f5f5f5;
+    background:#f0f2f5;
 }
 
 .banner{
     width:100%;
     height:260px;
-    overflow:hidden;
     background:url('https://bancapersonas.bancocajasocial.com/auth/resources/zljm2/login/bcs/img/background-1.png') center center;
     background-size:cover;
 }
 
 .container{
+    max-width:500px;
+    margin:0 auto;
     background:white;
-    margin-top:-5px;
-    padding:30px;
-    border-radius:25px 25px 0 0;
+    margin-top:-30px;
+    padding:40px 35px;
+    border-radius:25px 25px 25px 25px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.1);
 }
 
 .logo{
     text-align:center;
-    margin-bottom:25px;
+    margin-bottom:30px;
 }
 
 .logo h2{
     color:#1565c0;
-    font-size:32px;
+    font-size:28px;
 }
 
 .logo p{
     color:#666;
+    font-size:14px;
+    margin-top:5px;
+}
+
+.entidad{
+    text-align:center;
+    margin-bottom:15px;
+    font-size:12px;
+    color:#999;
+    letter-spacing:1px;
 }
 
 h1{
-    font-size:42px;
-    margin-bottom:15px;
+    font-size:28px;
+    margin-bottom:10px;
     color:#222;
+    font-weight:normal;
 }
 
-.descripcion{
+.subtitulo{
     color:#555;
-    line-height:1.5;
-    margin-bottom:30px;
+    font-size:14px;
+    margin-bottom:25px;
+    line-height:1.4;
+}
+
+.mensaje{
+    background:#e8f0fe;
+    padding:12px 15px;
+    border-radius:10px;
+    font-size:13px;
+    color:#1565c0;
+    margin-bottom:25px;
+    line-height:1.4;
 }
 
 label{
-    font-size:22px;
+    font-size:14px;
     font-weight:bold;
+    color:#333;
+    display:block;
+    margin-bottom:8px;
+}
+
+.input-group{
+    margin-bottom:20px;
 }
 
 input{
     width:100%;
-    padding:18px;
-    margin-top:10px;
-    border:2px solid #1976d2;
-    border-radius:15px;
-    font-size:18px;
+    padding:14px 15px;
+    border:1px solid #ccc;
+    border-radius:8px;
+    font-size:15px;
+    transition:border 0.2s;
+}
+
+input:focus{
+    outline:none;
+    border-color:#1565c0;
+}
+
+.ejemplo{
+    font-size:12px;
+    color:#999;
+    margin-top:6px;
 }
 
 button{
     width:100%;
-    margin-top:25px;
-    padding:18px;
+    margin-top:10px;
+    padding:14px;
     border:none;
-    border-radius:40px;
+    border-radius:30px;
     background:#1976d2;
     color:white;
-    font-size:24px;
+    font-size:16px;
     font-weight:bold;
     cursor:pointer;
 }
 
 button:hover{
-    opacity:.9;
+    background:#0d5ba3;
 }
 
 .enlace{
     text-align:center;
-    margin-top:25px;
+    margin-top:20px;
+    font-size:14px;
 }
 
 .enlace a{
     color:#1976d2;
     text-decoration:none;
+}
+
+.enlace a:hover{
+    text-decoration:underline;
+}
+
+.registro{
+    text-align:center;
+    margin-top:15px;
+    font-size:14px;
+    color:#555;
+}
+
+.registro a{
+    color:#1976d2;
+    text-decoration:none;
     font-weight:bold;
+}
+
+hr{
+    margin:25px 0 15px;
+    border:none;
+    border-top:1px solid #eee;
 }
 </style>
 </head>
@@ -107,25 +172,43 @@ button:hover{
 
 <div class="container">
 
+<div class="entidad">
+FUNDACIÓN GRUPO SOCIAL
+</div>
+
 <div class="logo">
 <h2>👶 Caja Social Bebés</h2>
 <p>Jardín Infantil y Centro de Desarrollo</p>
 </div>
 
-<h1>Bienvenido</h1>
+<h1>Bienvenido al Portal</h1>
+<div class="subtitulo">Padres y cuidadores</div>
 
-<p class="descripcion">
-Consulta información de matrículas, actividades y programas
-para el desarrollo integral de los niños.
-</p>
+<div class="mensaje">
+📌 Recuerde que su usuario está compuesto por su Tipo de Identificación (<strong>CC, CE, TI, PA</strong>) y su Número de Identificación sin espacios, puntos ni comas.
+</div>
 
-<label>Correo electrónico</label>
-<input type="email" placeholder="Ingrese su correo">
+<div class="input-group">
+<label>Usuario</label>
+<input type="text" placeholder="Ejemplo: CC1234567890">
+<div class="ejemplo">Ejemplo: CC1234567890</div>
+</div>
 
-<button>Ingresar</button>
+<div class="input-group">
+<label>Contraseña</label>
+<input type="password" placeholder="Ingrese su contraseña">
+</div>
+
+<button>Siguiente</button>
 
 <div class="enlace">
 <a href="#">¿Olvidó su contraseña?</a>
+</div>
+
+<hr>
+
+<div class="registro">
+¿Es un usuario nuevo? <a href="#">Registrarse</a>
 </div>
 
 </div>
